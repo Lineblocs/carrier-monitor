@@ -119,7 +119,7 @@ func main() {
 			deadline=time.Now().Local().Add(duration)
 
 			// write stats
-			for providerId,metric := range metrics {
+			for provider,metric := range metrics {
 				now:=time.Now().Local()
 				// store the data
 				stmt, err := db.Prepare("INSERT INTO sip_providers_metrics (`avg_answer_rate`, `avg_call_duration`, `failure_response_pct`, `provider_id`, `start`, `end`, `created_at`, `updated_at`) VALUES ( ?, ?, ?, ?, ?, ? )")
@@ -129,7 +129,11 @@ func main() {
 					fmt.Println("error: " + err.Error())
 					continue
 				}
-
+				providerId, err :=strconv.Atoi( provider )
+				if err != nil {
+					fmt.Println("error: " + err.Error())
+					continue
+				}
 				defer stmt.Close()
 				_, err = stmt.Exec(
 					strconv.Itoa( metric.AvgAnswerRate ),
