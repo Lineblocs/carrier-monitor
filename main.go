@@ -149,7 +149,26 @@ func main() {
 					fmt.Println("error: " + err.Error())
 					continue
 				}
+				status:="healthy"
+				if metric.AvgAnswerRate <= 20 { // warn
+					status="healthy-warning"
+				} else if metric.AvgAnswerRate <= 0 { // remove
+					status="unreachable"
+				}
+				if metric.FailureResponsePct <= 20 {
+					status="healthy-warning"
+				}
+				stmt, err = db.Prepare("UPDATE sip_providers SET `status` = ? WHERE `provider_id` = ?");
 
+				if err != nil {
+					fmt.Printf("could not execute query..")
+					fmt.Println("error: " + err.Error())
+					continue
+				}
+				defer stmt.Close()
+				_, err = stmt.Exec(
+					status,
+					providerId)
 			}
 			// reset metrics
 			metrics=make( map[string]*MetricsData)
