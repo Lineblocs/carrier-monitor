@@ -25,7 +25,7 @@ COPY . .
 
 RUN ls -a
 # Build the Go app
-RUN GOPRIVATE=bitbucket.org/infinitet3ch go build -o smudge .
+RUN GOPRIVATE=bitbucket.org/infinitet3ch go build -o main .
 
 # Expose port 80 to the outside world
 EXPOSE 80

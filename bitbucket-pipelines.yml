@@ -15,9 +15,9 @@ pipelines:
           - echo $aws | docker login --username AWS --password-stdin 754569496111.dkr.ecr.ca-central-1.amazonaws.com
           - echo "aws=$aws" > ENVIRONMENT_VARIABLES.txt
           # build the Docker image (this will use the Dockerfile in the root of the repo)
-          - docker build --memory=3072M -t smudge-node .
-          - docker tag smudge-node:latest 754569496111.dkr.ecr.ca-central-1.amazonaws.com/smudge-node:latest
-          - docker push 754569496111.dkr.ecr.ca-central-1.amazonaws.com/smudge-node:latest
+          - docker build --memory=3072M -t carrier-monitor .
+          - docker tag carrier-monitor:latest 754569496111.dkr.ecr.ca-central-1.amazonaws.com/carrier-monitor:latest
+          - docker push 754569496111.dkr.ecr.ca-central-1.amazonaws.com/carrier-monitor:latest
         artifacts: # define the artifacts to be passed to each future step
           - ENVIRONMENT_VARIABLES.txt
         services:
