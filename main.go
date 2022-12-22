@@ -1,6 +1,6 @@
 package main
 import ( 
-		lineblocs "bitbucket.org/infinitet3ch/lineblocs-go-helpers"
+		lineblocs "github.com/Lineblocs/go-helpers"
 		"strconv"
 		"database/sql"
 		"time"
